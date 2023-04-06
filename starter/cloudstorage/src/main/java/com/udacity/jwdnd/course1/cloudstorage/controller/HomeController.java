@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.models.File;
 import com.udacity.jwdnd.course1.cloudstorage.models.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
+import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +17,16 @@ import java.util.List;
 public class HomeController {
     private final FileService fileService;
     private UserMapper userMapper;
+    private NoteService noteService;
 
     public HomeController(
             FileService fileService,
-            UserMapper userMapper
+            UserMapper userMapper,
+            NoteService noteService
     ){
         this.fileService = fileService;
         this.userMapper = userMapper;
+        this.noteService = noteService;
     }
 
     @RequestMapping("/home")
@@ -31,6 +35,7 @@ public class HomeController {
         User user = userMapper.getUser(loggedInUserName);
 
         model.addAttribute("files", fileService.getUploadedFiles(user.getUserId()));
+        model.addAttribute("notes", noteService.getNotes(user.getUserId()));
         return "home";
     }
 }
