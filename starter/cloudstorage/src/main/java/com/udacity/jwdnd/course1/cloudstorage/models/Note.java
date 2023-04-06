@@ -13,11 +13,6 @@ public class Note {
         this.userId = userId;
     }
 
-    public Note(String noteTitle, String noteDescription) {
-        this.noteTitle = noteTitle;
-        this.noteDescription = noteDescription;
-    }
-
     public Integer getNoteId() {
         return noteId;
     }
