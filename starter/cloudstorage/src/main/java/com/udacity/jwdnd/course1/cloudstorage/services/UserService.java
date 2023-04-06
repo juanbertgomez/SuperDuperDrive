@@ -9,6 +9,7 @@ import java.util.Base64;
 
 @Service
 public class UserService {
+
     private final UserMapper userMapper;
     private final HashService hashService;
 
@@ -22,14 +23,15 @@ public class UserService {
     }
 
     public int createUser(User user) {
-        SecureRandom random  = new SecureRandom();
+        SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
-        String encodeSalt = Base64.getEncoder().encodeToString(salt);
-        String hashedPassword = hashService.getHashedValue(user.getPassword(), encodeSalt);
-        return userMapper.insert(new User(null, user.getUsername(), encodeSalt,hashedPassword,user.getFirstName(), user.getLastName()));
+        String encodedSalt = Base64.getEncoder().encodeToString(salt);
+        String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
+        return userMapper.insert(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstName(), user.getLastName()));
     }
 
-    public User getUser(String username) {return userMapper.getUser(username);}
-
+    public User getUser(String username) {
+        return userMapper.getUser(username);
+    }
 }
