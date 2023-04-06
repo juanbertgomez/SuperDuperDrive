@@ -30,8 +30,7 @@ public class HomeController {
         String loggedInUserName = (String) authentication.getPrincipal();
         User user = userMapper.getUser(loggedInUserName);
 
-        List<File> files = fileService.getUploadedFiles(user.getUserId());
-        model.addAttribute("files", files);
+        model.addAttribute("files", fileService.getUploadedFiles(user.getUserId()));
         return "home";
     }
 }

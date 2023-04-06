@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("home/files")
+@RequestMapping("/files")
 public class FileController {
     private FileService fileService;
     private UserMapper userMapper;
